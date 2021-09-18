@@ -1,0 +1,7 @@
+<div>
+  <form [formGroup]="taskForm" (ngSubmit)="submit()">
+    <app-text-field formControlName="title" label="Title" placeholder="new task"></app-text-field>
+
+    <button type="submit">Login</button>
+  </form>
+</div>

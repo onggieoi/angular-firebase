@@ -1,0 +1,18 @@
+.container {
+  width: 32vw;
+
+  .title {
+    font-size: 2rem;
+    padding: 1rem;
+    display: flex;
+    color: white;
+
+    .icon {
+      margin-left: auto;
+    }
+  }
+
+  .add-task {
+    margin-top: 0.25rem;
+  }
+}

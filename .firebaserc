@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-f81d0": {
+      "hosting": {
+        "nash-angular": [
+          "angular-f81d0"
+        ]
+      }
+    }
+  }
+}

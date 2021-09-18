@@ -1,0 +1,29 @@
+<div class="task-container">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{task.title}}
+        </mat-panel-title>
+        <!-- <mat-panel-description>
+              Type your name and age
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description> -->
+      </mat-expansion-panel-header>
+      <div class="view-detail">
+        <div>
+          <h1 class="text-center">{{task.title}} - Detail View</h1>
+          <div><span class="text-bold">Title: </span>{{task.title}}</div>
+          <div><span class="text-bold">Description: </span>{{task.description}}</div>
+        </div>
+
+        <div class="action">
+          <button (click)="editTask(task.id)" mat-raised-button>
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

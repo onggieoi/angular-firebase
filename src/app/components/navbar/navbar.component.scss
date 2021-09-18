@@ -1,0 +1,58 @@
+header {
+  width: 100%;
+
+  section.top-header {
+    display: flex;
+    align-items: center;
+
+    .brand {
+      width: 5rem;
+
+      img {
+        background-color: transparent;
+        width: 100%;
+      }
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+
+      a {
+        padding: 1rem 0.5rem;
+      }
+
+      a.active, a:hover {
+        color: white;
+        background: #86340A;
+        cursor: pointer;
+      }
+    }
+  }
+
+  section.bottom-header {
+    background: #DDDDDD;
+    display: flex;
+    padding: 1.5rem 0;
+    align-items: center;
+    width: 100%;
+
+    h1.title {
+      font-size: 3rem;
+      margin: 0 0 0 5rem;
+    }
+
+    .username {
+      font-size: 2rem;
+      margin-left: auto;
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+
+      .user-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+}

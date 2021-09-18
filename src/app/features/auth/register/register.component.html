@@ -1,0 +1,14 @@
+<div>
+  <mat-card>
+    <mat-card-content>
+      <form #form="ngForm" (ngSubmit)="register(form)">
+        <input type="text" name="fname" ngModel required placeholder="Enter your first name">
+        <input type="text" name="lname" ngModel required placeholder="Enter your last name">
+        <input type="text" name="email" ngModel required placeholder="Enter your email">
+        <input type="password" name="password" ngModel required>
+
+        <button type="submit" [disabled]="form.invalid || form.pending">Register</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,21 @@
+<mat-card class="container">
+  <mat-card-title class="title" [style.background-color]="metadata.backgroundColor">
+    <p>{{metadata.title}}</p>
+    <i class="icon">
+      <mat-icon>{{metadata.icon}}</mat-icon>
+    </i>
+  </mat-card-title>
+
+  <mat-card-content>
+    <app-task *ngFor="let task of tasks" [task]="task"></app-task>
+
+    <div *ngIf="type === 'TODO'" class="add-task">
+      <button (click)="addTask()" mat-raised-button color="primary">
+        <mat-icon>assessment</mat-icon>
+        Add
+      </button>
+    </div>
+
+  </mat-card-content>
+
+</mat-card>
