@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 const modules: any[] = [
   MatCardModule,
@@ -21,6 +22,7 @@ const modules: any[] = [
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
+  MatRadioModule,
 ];
 
 @NgModule({

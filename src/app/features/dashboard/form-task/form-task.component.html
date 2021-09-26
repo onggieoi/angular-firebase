@@ -1,7 +1,10 @@
-<div>
-  <form [formGroup]="taskForm" (ngSubmit)="submit()">
-    <app-text-field formControlName="title" label="Title" placeholder="new task"></app-text-field>
+<form [formGroup]="taskForm" (ngSubmit)="submit()" class="container">
+  <app-text-field formControlName="title" type="text" label="Title" placeholder="todo"></app-text-field>
+  <app-area-field formControlName="description" label="Description" placeholder="brief task"></app-area-field>
+  <app-radio-field formControlName="status" label="Status" [options]="taskStatusOptions"></app-radio-field>
 
-    <button type="submit">Login</button>
-  </form>
-</div>
+  <div class="btnContainer">
+    <button mat-raised-button class="cancelBtn" type="button">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" class="submitBtn">{{type}}</button>
+  </div>
+</form>

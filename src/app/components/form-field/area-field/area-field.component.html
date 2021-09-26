@@ -1,8 +1,8 @@
 <div class="container">
   <mat-form-field appearance="fill" class="w-100">
     <mat-label>{{label}}</mat-label>
-    <input matInput [placeholder]="placeholder" [formControl]="textForm" [type]="type">
-    <mat-error *ngIf="textForm.invalid && textForm.touched || textForm.dirty">
+    <textarea matInput [placeholder]="placeholder" [formControl]="areaForm" rows="4"></textarea>
+    <mat-error *ngIf="areaForm.invalid && areaForm.touched || areaForm.dirty">
       {{getErrorMessage()}}
     </mat-error>
   </mat-form-field>

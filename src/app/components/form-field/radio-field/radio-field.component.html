@@ -1,0 +1,6 @@
+<div class="container">
+  <label>Float label: </label>
+  <mat-radio-group [formControl]="radioForm">
+    <mat-radio-button *ngFor="let option of options" [value]="option.value">{{option.label}}</mat-radio-button>
+  </mat-radio-group>
+</div>

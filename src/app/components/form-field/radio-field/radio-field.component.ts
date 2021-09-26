@@ -2,17 +2,21 @@ import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { errorMessageHandler } from 'src/app/shared/helper';
 
+export type RadioOptionType<T> = {
+  label: string;
+  value: T;
+}
+
 @Component({
-  selector: 'app-text-field',
-  templateUrl: './text-field.component.html',
-  styleUrls: ['./text-field.component.scss'],
+  selector: 'app-radio-field',
+  templateUrl: './radio-field.component.html',
+  styleUrls: ['./radio-field.component.scss']
 })
-export class TextFieldComponent implements OnInit, ControlValueAccessor {
-  textForm = new FormControl();
+export class RadioFieldComponent implements OnInit, ControlValueAccessor {
+  radioForm = new FormControl();
   fieldName: string = '';
-  @Input() @Optional() placeholder: string = '';
   @Input() label: string = '';
-  @Input() type: string = '';
+  @Input() options: RadioOptionType<any>[] = [];
 
   constructor(
     @Optional() @Self() private controlDir: NgControl,
@@ -25,17 +29,17 @@ export class TextFieldComponent implements OnInit, ControlValueAccessor {
   ngOnInit(): void {
     if (this.controlDir) {
       const control = this.controlDir.control as AbstractControl;
-      this.textForm.setValidators(control.validator);
+      this.radioForm.setValidators(control.validator);
       this.fieldName = this.controlDir.name as string;
     }
   }
 
   writeValue(obj: any): void {
-    obj && this.textForm.setValue(obj);
+    obj && this.radioForm.setValue(obj);
   }
 
   registerOnChange(fn: any): void {
-    this.textForm.valueChanges.pipe().subscribe({
+    this.radioForm.valueChanges.pipe().subscribe({
       next: value => {
         fn(value);
       },
@@ -49,6 +53,6 @@ export class TextFieldComponent implements OnInit, ControlValueAccessor {
   onTouched: any = () => { };
 
   getErrorMessage() {
-    return errorMessageHandler(this.textForm, this.fieldName);
+    return errorMessageHandler(this.radioForm, this.fieldName);
   }
 }

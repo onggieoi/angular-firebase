@@ -1,7 +1,7 @@
 export type TASK_TYPE = 'TODO' | 'INPROGRESS' | 'DONE';
 
 type Task = {
-  id: string | number;
+  id: string;
   title: string;
   description: string;
   status: TASK_TYPE;

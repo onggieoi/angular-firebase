@@ -1,1 +1,7 @@
-<p>update-task works!</p>
+<div>
+  <mat-card>
+    <mat-card-content>
+      <app-form-task (onSubmit)="onSubmit($event)" [formType]="task"></app-form-task>
+    </mat-card-content>
+  </mat-card>
+</div>
