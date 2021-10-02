@@ -39,3 +39,17 @@ export const taskFilter = (tasks: Task[]) => {
     doneTasks,
   }
 };
+
+export const userFormat = ({ name, role }: UserForm) => {
+  return {
+    name,
+    role,
+    email: `${name.replace(/\s+/g, '').toLowerCase()}@gmail.com`,
+    password: '123456'
+  }
+}
+
+type UserForm = {
+  name: string;
+  role: string;
+}

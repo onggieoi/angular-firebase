@@ -4,7 +4,13 @@
   <app-radio-field formControlName="status" label="Status" [options]="taskStatusOptions"></app-radio-field>
 
   <div class="btnContainer">
-    <button mat-raised-button class="cancelBtn" type="button">Cancel</button>
+    <button *ngIf="type === 'Update'" mat-raised-button color="warn" class="deleteBtn" type="button"
+      (click)="onDelete.emit()">
+      Delete
+    </button>
+
+    <button mat-raised-button class="cancelBtn" type="button" (click)="onCancel()">Cancel</button>
+
     <button mat-raised-button color="primary" type="submit" class="submitBtn">{{type}}</button>
   </div>
 </form>

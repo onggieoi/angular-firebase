@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/services/loading.service';
 
 import { TaskService } from 'src/app/services/task.service';
 
@@ -14,20 +15,20 @@ export class CreateTaskComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private router: Router,
+    private loadingService: LoadingService,
   ) { }
 
   ngOnInit(): void {
   }
 
-  ngOnDestroy(): void {
-  }
-
   onSubmit(form: FormGroup) {
-    console.log(form.value);
-    this.taskService.addTask(form.value, (): void => {
-      console.log('callin back');
+    this.loadingService.on();
 
-      this.router.navigateByUrl('/');
-    });
+    setTimeout(() => {
+      this.taskService.addTask(form.value, (): void => {
+        this.router.navigateByUrl('/');
+        this.loadingService.off();
+      });
+    }, 500);
   }
 }

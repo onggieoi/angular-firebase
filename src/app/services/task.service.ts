@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import Task from '../types/TaskType';
 
@@ -25,19 +25,25 @@ export class TaskService {
         map(actions => actions.map(item => ({
           ...item.payload.doc.data(),
           id: item.payload.doc.id,
-        })))
+        }))),
       )
   }
 
-  getTask(id: string): Observable<Task> {
+  getTask(id: string): Observable<any> {
     return this.fireStore.collection<any>('tasks')
       .doc(id)
       .valueChanges()
       .pipe(
-        map(task => ({
-          ...task,
-          id,
-        }))
+        map(task => {
+          if (task) {
+            return {
+              ...task,
+              id,
+            }
+          } else {
+            return null;
+          }
+        })
       )
   }
 
@@ -45,7 +51,6 @@ export class TaskService {
     this.fireStore.collection('tasks')
       .add(task)
       .then(res => {
-        console.log(res);
         return cb();
       })
       .catch(err => console.log(err));
@@ -56,8 +61,13 @@ export class TaskService {
       .doc(id)
       .set(task)
       .then(res => {
-        console.log(res);
         return cb();
       }).catch(err => console.log(err))
+  }
+
+  deleteTask(id: string, cb: Function) {
+    this.fireStore.collection('tasks').doc(id).delete();
+
+    return cb();
   }
 }

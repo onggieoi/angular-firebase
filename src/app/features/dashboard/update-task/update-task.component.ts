@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LoadingService } from 'src/app/services/loading.service';
+
 import { TaskService } from 'src/app/services/task.service';
 import Task from 'src/app/types/TaskType';
 
@@ -10,7 +12,7 @@ import Task from 'src/app/types/TaskType';
   templateUrl: './update-task.component.html',
   styleUrls: ['./update-task.component.scss']
 })
-export class UpdateTaskComponent implements OnInit {
+export class UpdateTaskComponent implements OnInit, OnDestroy {
   task: Task;
   sub: Subscription = new Subscription();
 
@@ -18,6 +20,7 @@ export class UpdateTaskComponent implements OnInit {
     private route: ActivatedRoute,
     private taskService: TaskService,
     private router: Router,
+    private loadingService: LoadingService,
   ) {
     this.task = {
       id: '',
@@ -28,27 +31,47 @@ export class UpdateTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadingService.on();
+
     const routeParams = this.route.snapshot.paramMap;
     const taskId = routeParams.get('id');
     if (taskId) {
-      console.log(taskId);
-
       this.sub.add(
         this.taskService.getTask(taskId).subscribe(task => {
-          console.log(task);
-
-          this.task = task;
-        })
+          if (task) {
+            this.task = task;
+            this.loadingService.off();
+          } else {
+            this.router.navigateByUrl('/404');
+          }
+        }),
       );
     }
   }
 
   onSubmit(form: FormGroup) {
-    console.log(form.value);
-    this.taskService.updateTask(this.task.id, form.value, (): void => {
-      console.log('callin back');
+    this.loadingService.on();
 
-      this.router.navigateByUrl('/');
-    });
+    setTimeout(() => {
+      this.taskService.updateTask(this.task.id, form.value, (): void => {
+        this.router.navigateByUrl('/');
+        this.loadingService.off();
+      });
+    }, 300);
+  }
+
+  onDelete() {
+    this.loadingService.on();
+
+    setTimeout(() => {
+      this.taskService.deleteTask(this.task.id, () => {
+        this.router.navigateByUrl('/');
+        this.loadingService.off();
+      });
+    }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

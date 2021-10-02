@@ -1,13 +1,15 @@
+<mat-progress-bar *ngIf="getLoading()" mode="indeterminate"></mat-progress-bar>
+
 <header class="header">
   <section class="top-header">
     <a href="" class="brand">
       <img src="assets/images/angular.png" alt="">
     </a>
     <nav>
-      <a class="active">Dashboard</a>
-      <a>User</a>
-      <a>Schedule</a>
-      <a>Login</a>
+      <a (click)="onNavigate('/')" [ngClass]="getActiveNav('/')">Dashboard</a>
+      <a (click)="onNavigate('/users')" [ngClass]="getActiveNav('/users')">User</a>
+      <a (click)="onNavigate('/schedules')" [ngClass]="getActiveNav('/schedules')">Schedule</a>
+      <a *ngIf="isAuth" (click)="onLogout()">Logout</a>
     </nav>
   </section>
 

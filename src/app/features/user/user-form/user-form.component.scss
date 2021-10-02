@@ -1,0 +1,45 @@
+.user {
+    padding: 0;
+    width: 15rem;
+    margin: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+
+    .user-header {
+      width: 100%;
+      color: white;
+      background-color: #3f51b5;
+      text-align: center;
+      font-size: 1.5rem;
+      padding: 0.75rem 0;
+
+      display: flex;
+      justify-content: center;
+
+      i {
+        margin-right: 0.25rem;
+      }
+    }
+
+    .user-img {
+      width: 100%;
+      margin: 0;
+    }
+
+    .user-content {
+      display: flex;
+      flex-direction: column;
+
+      .role {
+        text-align: center;
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+      }
+    }
+
+    .user-footer {
+      background-color: #DDDDDD;
+      display: flex;
+      justify-content: center;
+    }
+  }

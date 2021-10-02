@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const modules: any[] = [
   MatCardModule,
@@ -23,6 +25,8 @@ const modules: any[] = [
   MatFormFieldModule,
   MatInputModule,
   MatRadioModule,
+  MatProgressBarModule,
+  MatExpansionModule,
 ];
 
 @NgModule({

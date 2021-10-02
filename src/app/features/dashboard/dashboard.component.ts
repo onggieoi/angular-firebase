@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import firebase from 'firebase/compat';
 
-import { PostService } from 'src/app/services/post.service';
 import Task from 'src/app/types/TaskType';
 import { TaskService } from 'src/app/services/task.service';
 import { taskFilter } from 'src/app/shared/helper';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,9 +19,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private taskService: TaskService,
+    private loadingService: LoadingService,
   ) { }
 
   ngOnInit(): void {
+    this.loadingService.on();
+
     this.subs.push(
       this.taskService.getTasks().subscribe((tasks: Task[]) => {
         const { todoTasks, inprogressTask, doneTasks } = taskFilter(tasks);
@@ -30,6 +32,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.todoTasks = todoTasks;
         this.inprogressTasks = inprogressTask;
         this.doneTasks = doneTasks;
+
+        this.loadingService.off();
       })
     );
   }

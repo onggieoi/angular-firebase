@@ -1,0 +1,40 @@
+<form [formGroup]="userForm" (ngSubmit)="submit()">
+  <mat-card class="user">
+    <div class="user-header" *ngIf="isReadOnly; else inputName">
+      <i>
+        <mat-icon>account_circle</mat-icon>
+      </i>
+      {{user.name}}
+    </div>
+    <ng-template #inputName>
+      <app-text-field formControlName="name" type="text" label="Name">
+      </app-text-field>
+    </ng-template>
+
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"
+      class="user-img">
+
+    <mat-card-content>
+      <div class="user-content">
+        <div *ngIf="isReadOnly; else inputRole" class="role">{{user.role}}</div>
+        <ng-template #inputRole>
+          <app-text-field formControlName="role" type="text" label="Role"></app-text-field>
+        </ng-template>
+
+        <div *ngIf="isReadOnly" class="mx-auto">
+          <button mat-raised-button color="primary">
+            <mat-icon>assignment_turned_in</mat-icon>
+            Schedule
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <div class="user-footer">
+      <button mat-button *ngIf="!isReadOnly" type="button" (click)="onCancel()">Cancel</button>
+      <button mat-button *ngIf="isReadOnly" type="button" (click)="onEdit()">Edit</button>
+      <button mat-button *ngIf="!isReadOnly" type="submit">Submit</button>
+      <button mat-button type="button" (click)="onDelete()" [disabled]="isDeleteAble()">Remove</button>
+    </div>
+  </mat-card>
+</form>

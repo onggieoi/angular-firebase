@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+
 import { RadioOptionType } from 'src/app/components/form-field/radio-field/radio-field.component';
 
 import Task, { TASK_TYPE } from 'src/app/types/TaskType';
@@ -10,6 +12,8 @@ const TaskStatusOptions: RadioOptionType<TASK_TYPE>[] = [
   { label: 'Done', value: 'DONE' },
 ];
 
+type SubmitType = 'Create' | 'Update';
+
 @Component({
   selector: 'app-form-task',
   templateUrl: './form-task.component.html',
@@ -18,11 +22,16 @@ const TaskStatusOptions: RadioOptionType<TASK_TYPE>[] = [
 export class FormTaskComponent implements OnInit, OnChanges {
   @Input() formType?: Task;
   @Output() onSubmit = new EventEmitter<FormGroup>();
-  type = 'Create';
+  @Output() onDelete = new EventEmitter();
+
+  type: SubmitType = 'Create';
   taskForm: FormGroup;
   taskStatusOptions = TaskStatusOptions;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private location: Location,
+  ) {
     this.taskForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -34,7 +43,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes.formType);
     const formType = changes.formType.currentValue;
     if (formType) {
       this.type = 'Update';
@@ -48,5 +56,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
   submit(): void {
     this.onSubmit.emit(this.taskForm);
+  }
+
+  onCancel(): void {
+    this.location.back();
   }
 }
