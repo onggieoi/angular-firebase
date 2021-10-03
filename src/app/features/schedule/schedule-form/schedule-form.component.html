@@ -1,0 +1,14 @@
+<form [formGroup]="scheduleForm" (ngSubmit)="submit()" class="container">
+  <app-text-field formControlName="title" type="text" label="Title"></app-text-field>
+  <app-text-field formControlName="description" type="text" label="Description"></app-text-field>
+  <app-text-field formControlName="location" type="text" label="Location"></app-text-field>
+  <app-date-field formControlName="startTime" type="datetime" label="Start Time"></app-date-field>
+  <app-date-field formControlName="endTime" type="datetime" label="End Time"></app-date-field>
+
+  <div>
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon>library_add</mat-icon>
+      Submit
+    </button>
+  </div>
+</form>

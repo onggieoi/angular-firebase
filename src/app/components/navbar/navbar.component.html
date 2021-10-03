@@ -1,28 +1,33 @@
-<mat-progress-bar *ngIf="getLoading()" mode="indeterminate"></mat-progress-bar>
+<div class="container">
+  <div class="fixed">
+    <mat-progress-bar *ngIf="getLoading()" mode="indeterminate"></mat-progress-bar>
+  </div>
 
-<header class="header">
-  <section class="top-header">
-    <a href="" class="brand">
-      <img src="assets/images/angular.png" alt="">
-    </a>
-    <nav>
-      <a (click)="onNavigate('/')" [ngClass]="getActiveNav('/')">Dashboard</a>
-      <a (click)="onNavigate('/users')" [ngClass]="getActiveNav('/users')">User</a>
-      <a (click)="onNavigate('/schedules')" [ngClass]="getActiveNav('/schedules')">Schedule</a>
-      <a *ngIf="isAuth" (click)="onLogout()">Logout</a>
-    </nav>
-  </section>
 
-  <section class="bottom-header">
-    <h1 class="title">
-      Angular Sprint
-    </h1>
+  <header class="header">
+    <section class="top-header">
+      <a href="" class="brand">
+        <img src="assets/images/angular.png" alt="">
+      </a>
+      <nav>
+        <a (click)="onNavigate('/')" [ngClass]="getActiveHome()">Dashboard</a>
+        <a (click)="onNavigate('/users')" [routerLink]="['/users']" routerLinkActive="active">User</a>
+        <a (click)="onNavigate('/schedules')" [routerLink]="['/schedules']" routerLinkActive="active">Schedule</a>
+        <a *ngIf="isAuth" (click)="onLogout()">Logout</a>
+      </nav>
+    </section>
 
-    <div class="username">
-      <i>
-        <mat-icon class="user-icon">account_circle</mat-icon>
-      </i>
-      <p>Username: {{email}}</p>
-    </div>
-  </section>
-</header>
+    <section class="bottom-header">
+      <h1 class="title">
+        Angular Sprint
+      </h1>
+
+      <div class="username" *ngIf="email">
+        <i>
+          <mat-icon class="user-icon">account_circle</mat-icon>
+        </i>
+        <p>Username: {{email}}</p>
+      </div>
+    </section>
+  </header>
+</div>

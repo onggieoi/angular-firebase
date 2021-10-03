@@ -34,16 +34,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sub.add(
       this.authService.getCurrentUser()
         .subscribe(user => {
-          console.log(user);
-          this.isAuth = true;
-
           if (user) {
+            this.isAuth = true;
             const { email } = userFormat({ name: user.name, role: user?.role });
             this.email = email;
-            this.loadingService.off();
           }
+
+          this.loadingService.off();
         }),
     );
+  }
+  getActiveHome() {
+    if (this.router.url === '/') return 'active';
+    return '';
   }
 
   onNavigate(navs: Navs) {
@@ -54,13 +57,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.loadingService.isLoading;
   }
 
-  getActiveNav(nav: Navs) {
-    if (nav === this.router.url) return 'active';
-
-    return '';
-  }
-
   onLogout() {
-    this.authService.logout();
+    this.authService.logout().then(() => {
+      window.location.reload();
+    })
   }
 }

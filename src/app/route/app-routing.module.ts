@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../guards/auth.guard';
-import { AUTH, DASHBOARD, NOTFOUND, USER } from '.';
+import { AUTH, DASHBOARD, NOTFOUND, SCHEDULE, USER } from '.';
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { LoginComponent } from '../features/auth/login/login.component';
 
@@ -20,6 +20,11 @@ const routes: Routes = [
   {
     path: USER,
     loadChildren: () => import('../features/user/user.module').then(m => m.UserModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: SCHEDULE,
+    loadChildren: () => import('../features/schedule/schedule.module').then(m => m.ScheduleModule),
     canActivate: [AuthGuard],
   },
   {

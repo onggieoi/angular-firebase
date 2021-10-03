@@ -1,4 +1,5 @@
 import { FormControl } from "@angular/forms";
+import { Moment } from "moment";
 
 import Task from "../types/TaskType";
 
@@ -52,4 +53,20 @@ export const userFormat = ({ name, role }: UserForm) => {
 type UserForm = {
   name: string;
   role: string;
+}
+
+export const formatScheduleForm = (scheduleForm: ScheduleForm) => {
+  return {
+    ...scheduleForm,
+    startTime: scheduleForm.startTime.toDate().toUTCString(),
+    endTime: scheduleForm.endTime.toDate().toUTCString(),
+  }
+};
+
+type ScheduleForm = {
+  title: string;
+  description: string;
+  location: string;
+  startTime: Moment;
+  endTime: Moment;
 }

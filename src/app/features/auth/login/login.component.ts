@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, OnChanges {
   subs: Subscription[] = [];
 
   constructor(
@@ -18,11 +18,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
   ) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
+
   ngOnInit(): void {
     this.subs.push(
-      this.authService.getUserObservable().subscribe(user => {
+      this.authService.getCurrentUser().subscribe(user => {
         if (user) {
-          this.router.navigateByUrl('/').then();
+          this.router.navigateByUrl('/');
         }
       }),
     );
@@ -35,8 +39,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   login(form: NgForm): void {
     console.log(form.value);
     const { email, password } = form.value;
-    this.authService.login(email, password);
+    this.authService.login(email, password).then(() => {
+      console.log('redirect?');
 
-    form.resetForm();
+      form.resetForm();
+      this.router.navigateByUrl('/');
+    })
   }
 }

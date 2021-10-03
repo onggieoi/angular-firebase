@@ -76,7 +76,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    this.fireAuth.signInWithEmailAndPassword(email, password)
+    return this.fireAuth.signInWithEmailAndPassword(email, password)
       .then(res => {
         this.currentUserObservable = this.fireAuth.authState as any;
 
@@ -85,17 +85,17 @@ export class AuthService {
           .valueChanges()
           .subscribe(user => {
             this.currentUser = user;
-            this.currentUser$.next(this.currentUser);
-          })
+            this.currentUser$.next(user);
+          });
       }).catch(err => console.log(err));
   }
 
   logout() {
-    this.fireAuth.signOut().then(res => {
+    return this.fireAuth.signOut().then(res => {
       this.currentUser = undefined;
       this.currentUser$.next(this.currentUser);
 
-      this.router.navigateByUrl('/login')
+      this.router.navigateByUrl('/login');
     }).catch(err => console.log(err));
   }
 
