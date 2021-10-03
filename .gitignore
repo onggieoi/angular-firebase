@@ -45,3 +45,5 @@ testem.log
 Thumbs.debug
 package-lock.json
 yarn.lock
+
+.env
